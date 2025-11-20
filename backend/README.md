@@ -1,4 +1,4 @@
-# Shopping Cart Backend
+uv sync# Shopping Cart Backend
 
 ## 安裝
 
@@ -13,12 +13,30 @@ uv sync
 
 ## 資料庫設定
 
-確保 MySQL 已安裝並運行，資料庫 `shopping-svelte` 已建立。
+1. 確保 MySQL 已安裝並運行
 
-連線資訊：
-- 用戶名: root
-- 密碼: (空)
-- 資料庫: shopping-svelte
+2. 複製環境變數範例檔案：
+   ```bash
+   cp .env.example .env
+   ```
+
+3. 編輯 `.env` 檔案，設定資料庫連線資訊：
+   ```env
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_USER=root
+   DB_PASSWORD=
+   DB_NAME=shopping-svelte
+   ```
+
+4. 初始化資料庫（自動建立資料庫和資料表）：
+   ```bash
+   uv run python -m app.core.init_db
+   ```
+
+   這會自動：
+   - 建立資料庫（如果不存在）
+   - 建立所有必要的資料表
 
 ## 執行
 

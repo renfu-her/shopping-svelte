@@ -30,18 +30,28 @@ shopping-svelte/
 ### 後端設定
 
 1. 確保 MySQL 已安裝並運行
-2. 建立資料庫：
-   ```sql
-   CREATE DATABASE `shopping-svelte`;
-   ```
 
-3. 安裝依賴：
+2. 安裝依賴：
    ```bash
    cd backend
    uv sync
    ```
    
    這會根據 `pyproject.toml` 自動建立虛擬環境並安裝所有依賴。
+
+3. 設定環境變數：
+   ```bash
+   cp .env.example .env
+   ```
+   
+   編輯 `.env` 檔案，設定資料庫連線資訊。
+
+4. 初始化資料庫：
+   ```bash
+   uv run python -m app.core.init_db
+   ```
+   
+   這會自動建立資料庫和所有必要的資料表。
 
 4. 啟動後端：
    ```bash

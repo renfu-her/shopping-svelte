@@ -8,8 +8,11 @@ from app.api import categories, products, cart, orders, upload, ads, news, about
 from fastapi_amis_admin.admin import AdminSite
 from app.admin import setup_admin
 
-# 建立資料表
-Base.metadata.create_all(bind=engine)
+# 建立資料表（如果資料庫已存在）
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"警告: 無法建立資料表，請先執行 'uv run python -m app.core.init_db' 初始化資料庫: {e}")
 
 app = FastAPI(
     title=settings.APP_TITLE,

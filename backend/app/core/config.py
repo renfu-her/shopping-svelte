@@ -7,7 +7,27 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str = "mysql+pymysql://root@localhost/shopping-svelte"
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 3306
+    DB_USER: str = "root"
+    DB_PASSWORD: str = ""
+    DB_NAME: str = "shopping-svelte"
+    
+    @property
+    def DATABASE_URL(self) -> str:
+        """構建資料庫連線 URL"""
+        if self.DB_PASSWORD:
+            return f"mysql+pymysql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        else:
+            return f"mysql+pymysql://{self.DB_USER}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+    
+    @property
+    def DATABASE_URL_WITHOUT_DB(self) -> str:
+        """構建不包含資料庫名稱的連線 URL（用於建立資料庫）"""
+        if self.DB_PASSWORD:
+            return f"mysql+pymysql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}"
+        else:
+            return f"mysql+pymysql://{self.DB_USER}@{self.DB_HOST}:{self.DB_PORT}"
     
     # App
     APP_TITLE: str = "Shopping Cart API"

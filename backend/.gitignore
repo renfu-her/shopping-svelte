@@ -23,4 +23,6 @@ wheels/
 *.egg
 static/uploads/*
 !static/uploads/.gitkeep
+.env
+.env.local
 
