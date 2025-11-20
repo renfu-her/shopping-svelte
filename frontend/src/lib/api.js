@@ -1,5 +1,9 @@
 const API_BASE = '/api';
 
+/**
+ * @param {string} endpoint
+ * @param {RequestInit} [options={}]
+ */
 export async function fetchAPI(endpoint, options = {}) {
 	const sessionId = getSessionId();
 	
@@ -8,7 +12,7 @@ export async function fetchAPI(endpoint, options = {}) {
 		headers: {
 			'Content-Type': 'application/json',
 			'X-Session-Id': sessionId,
-			...options.headers,
+			...(options.headers || {}),
 		},
 	});
 

@@ -69,18 +69,42 @@ shopping-svelte/
 
 ### 前端設定
 
-1. 安裝依賴：
+1. 進入前端目錄：
    ```bash
    cd frontend
-   npm install
    ```
 
-2. 啟動開發伺服器：
+2. 安裝依賴（**請使用 pnpm**，npm 在您的系統上有兼容性問題）：
    ```bash
-   npm run dev
+   pnpm install
+   ```
+   
+   批准構建腳本：
+   ```bash
+   pnpm approve-builds
+   pnpm install
+   ```
+   
+   如果 pnpm 不可用，可以使用 yarn：
+   ```bash
+   yarn install
    ```
 
-前端將運行在 http://localhost:5173
+3. 初始化 SvelteKit（首次運行）：
+   ```bash
+   pnpm run sync
+   ```
+
+4. 啟動開發伺服器：
+   ```bash
+   pnpm dev
+   ```
+
+前端將運行在 http://localhost:5000
+
+**注意**：
+- 請確保在 `frontend` 目錄下執行這些命令
+- 建議使用 `pnpm` 而不是 `npm`（npm 會出現兼容性錯誤）
 
 ## 功能
 
