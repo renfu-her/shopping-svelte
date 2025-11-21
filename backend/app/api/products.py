@@ -39,10 +39,15 @@ async def get_products(
     page: int = Query(1, ge=1),
     per_page: int = Query(12, ge=1, le=100),
     category_slug: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
     db: Session = Depends(get_db)
 ):
-    """取得產品列表（支援分頁、分類篩選）"""
+    """取得產品列表（支援分頁、分類篩選、搜尋）"""
     query = db.query(Product)
+    
+    # 如果有搜尋關鍵字
+    if search:
+        query = query.filter(Product.name.contains(search))
     
     # 如果有分類篩選
     if category_slug:

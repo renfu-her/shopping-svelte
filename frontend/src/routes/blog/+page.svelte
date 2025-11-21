@@ -17,50 +17,45 @@
 </script>
 
 <svelte:head>
-	<title>最新消息 - Shopwise</title>
+	<title>部落格 - Shopwise</title>
 </svelte:head>
 
-<div class="news-page">
+<div class="blog-page">
 	<div class="container">
 		<div class="breadcrumb">
 			<a href="/">首頁</a>
 			<span> > </span>
-			<span>最新消息</span>
+			<span>部落格</span>
 		</div>
 
-		<h1>最新消息</h1>
+		<h1>部落格</h1>
 
 		{#if loading}
 			<div class="loading">載入中...</div>
 		{:else if news.length === 0}
 			<div class="empty-state">
-				<p>目前沒有新聞</p>
+				<p>目前沒有文章</p>
 			</div>
 		{:else}
-			<div class="news-list">
+			<div class="blog-grid">
 				{#each news as item}
-					<article class="news-item">
+					<article class="blog-card">
 						{#if item.image_url}
-							<div class="news-image">
+							<div class="blog-image">
 								<img src={item.image_url} alt={item.title} />
 							</div>
 						{/if}
-						<div class="news-content">
+						<div class="blog-content">
 							<h2>{item.title}</h2>
 							{#if item.published_at}
 								<p class="date">
-									{new Date(item.published_at).toLocaleDateString('zh-TW', {
-										year: 'numeric',
-										month: 'long',
-										day: 'numeric'
-									})}
+									{new Date(item.published_at).toLocaleDateString('zh-TW')}
 								</p>
 							{/if}
 							{#if item.content}
-								<div class="content">
-									{item.content}
-								</div>
+								<p class="excerpt">{item.content.substring(0, 150)}...</p>
 							{/if}
+							<a href="/news" class="read-more">閱讀更多 →</a>
 						</div>
 					</article>
 				{/each}
@@ -70,14 +65,14 @@
 </div>
 
 <style>
-	.news-page {
+	.blog-page {
 		background-color: #f8f8f8;
 		min-height: calc(100vh - 300px);
 		padding: 2rem 0;
 	}
 
 	.container {
-		max-width: 1200px;
+		max-width: 1400px;
 		margin: 0 auto;
 		padding: 0 2rem;
 	}
@@ -105,42 +100,45 @@
 		border-radius: 8px;
 	}
 
-	.news-list {
-		display: flex;
-		flex-direction: column;
+	.blog-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		gap: 2rem;
 	}
 
-	.news-item {
+	.blog-card {
 		background-color: white;
 		border-radius: 8px;
 		overflow: hidden;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		display: flex;
-		gap: 2rem;
-		padding: 2rem;
+		transition: transform 0.2s, box-shadow 0.2s;
 	}
 
-	.news-image {
-		flex-shrink: 0;
-		width: 300px;
+	.blog-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 	}
 
-	.news-image img {
+	.blog-image {
 		width: 100%;
 		height: 200px;
+		overflow: hidden;
+	}
+
+	.blog-image img {
+		width: 100%;
+		height: 100%;
 		object-fit: cover;
-		border-radius: 8px;
 	}
 
-	.news-content {
-		flex: 1;
+	.blog-content {
+		padding: 1.5rem;
 	}
 
-	.news-content h2 {
+	.blog-content h2 {
 		margin-top: 0;
 		margin-bottom: 0.5rem;
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 	}
 
 	.date {
@@ -149,18 +147,20 @@
 		margin-bottom: 1rem;
 	}
 
-	.content {
-		line-height: 1.8;
-		color: #333;
+	.excerpt {
+		color: #666;
+		line-height: 1.6;
+		margin-bottom: 1rem;
 	}
 
-	@media (max-width: 768px) {
-		.news-item {
-			flex-direction: column;
-		}
+	.read-more {
+		color: #e74c3c;
+		text-decoration: none;
+		font-weight: 500;
+	}
 
-		.news-image {
-			width: 100%;
-		}
+	.read-more:hover {
+		text-decoration: underline;
 	}
 </style>
+

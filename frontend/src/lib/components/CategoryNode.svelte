@@ -20,8 +20,9 @@
 		class:active={category.slug === currentSlug}
 		class:clickable={category.level === 3}
 		on:click={handleClick}
-		role={category.level === 3 ? 'button' : undefined}
-		tabindex={category.level === 3 ? 0 : undefined}
+		on:keydown={(e) => category.level === 3 && (e.key === 'Enter' || e.key === ' ') && handleClick()}
+		role={category.level === 3 ? 'button' : 'presentation'}
+		tabindex={category.level === 3 ? 0 : -1}
 	>
 		{category.name}
 	</div>

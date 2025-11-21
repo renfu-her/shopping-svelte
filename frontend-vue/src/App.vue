@@ -1,0 +1,28 @@
+<template>
+	<router-view />
+</template>
+
+<script setup>
+// Root component
+</script>
+
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Roboto', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	color: #333;
+	line-height: 1.6;
+}
+
+#app {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+</style>
+
